@@ -1,0 +1,575 @@
+/* ==========================================================================
+   homehrdecor — layout layer
+   Containers, sections, header, navigation, footer, watermarks.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Container & section rhythm
+   -------------------------------------------------------------------------- */
+.container {
+	width: 100%;
+	max-width: var(--container-max);
+	margin-inline: auto;
+	padding-inline: var(--gutter);
+}
+
+.container--wide {
+	max-width: var(--container-wide);
+}
+
+.container--narrow {
+	max-width: 860px;
+}
+
+.section {
+	padding-block: var(--section-y);
+	position: relative;
+}
+
+.section--lg {
+	padding-block: var(--section-y-lg);
+}
+
+.section--flush-top {
+	padding-block-start: 0;
+}
+
+.section--dark {
+	background-color: var(--ink);
+	color: #fff;
+	/* The watermark inside is wider than the viewport by design; clip it
+	   so it never creates document-level horizontal scroll. */
+	overflow: hidden;
+	--color-text: #fff;
+	--color-muted: rgba(255, 255, 255, 0.6);
+	--color-border: var(--color-border-dark);
+	--color-accent: var(--bronze-soft);
+}
+
+.section--surface {
+	background-color: var(--color-surface-alt);
+}
+
+/* --------------------------------------------------------------------------
+   2. Watermark
+   An oversized, low-opacity ghost of the brand mark. It is decorative
+   only and is never allowed to compete with content.
+   -------------------------------------------------------------------------- */
+.watermark {
+	position: absolute;
+	z-index: 0;
+	pointer-events: none;
+	user-select: none;
+	opacity: 0.045;
+	inset-inline-start: 50%;
+	inset-block-start: 50%;
+	translate: -50% -50%;
+	width: min(78vw, 900px);
+	aspect-ratio: 1;
+}
+
+.watermark img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.watermark--hero {
+	inset-block-start: 46%;
+	inset-inline-start: 62%;
+	width: min(96vw, 1180px);
+	opacity: 0.05;
+}
+
+.watermark--philosophy {
+	inset-inline-start: 12%;
+	inset-block-start: 58%;
+	width: min(120vw, 1400px);
+	opacity: 0.035;
+}
+
+.watermark--cta {
+	width: min(90vw, 1000px);
+	opacity: 0.04;
+}
+
+.watermark--footer {
+	position: absolute;
+	inset-inline-end: -8%;
+	inset-block-end: -32%;
+	inset-inline-start: auto;
+	inset-block-start: auto;
+	translate: none;
+	width: min(70vw, 620px);
+	opacity: 0.035;
+}
+
+/* --------------------------------------------------------------------------
+   3. Header
+   Transparent over the hero, solid once the page scrolls.
+   -------------------------------------------------------------------------- */
+.site-header {
+	position: fixed;
+	inset-block-start: 0;
+	inset-inline: 0;
+	z-index: 100;
+	color: #fff;
+	transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out),
+		box-shadow var(--dur) var(--ease-out), backdrop-filter var(--dur) var(--ease-out);
+}
+
+.site-header__inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-lg);
+	height: var(--header-h);
+	transition: height var(--dur) var(--ease-out);
+}
+
+/* Scrolled and interior-page states */
+.site-header.is-stuck,
+.site-header--solid {
+	background-color: rgba(247, 244, 239, 0.88);
+	backdrop-filter: saturate(150%) blur(14px);
+	-webkit-backdrop-filter: saturate(150%) blur(14px);
+	color: var(--color-text);
+	box-shadow: 0 1px 0 var(--color-border);
+}
+
+.site-header.is-stuck .site-header__inner,
+.site-header--solid .site-header__inner {
+	height: var(--header-h-compact);
+}
+
+/* Detail pages sit on dark heroes, so the barrier stays dark throughout. */
+.site-header--dark,
+.site-header--dark.is-stuck {
+	background-color: rgba(20, 24, 27, 0.72);
+	backdrop-filter: saturate(150%) blur(14px);
+	-webkit-backdrop-filter: saturate(150%) blur(14px);
+	color: #fff;
+	box-shadow: 0 1px 0 var(--color-border-dark);
+}
+
+.site-header--dark.is-stuck {
+	background-color: rgba(20, 24, 27, 0.92);
+}
+
+.site-header.is-hidden {
+	transform: translateY(-100%);
+}
+
+.site-header__brand {
+	display: flex;
+	align-items: center;
+	flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. Logo lockup
+   -------------------------------------------------------------------------- */
+.logo {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.7rem;
+}
+
+.logo__mark {
+	width: 42px;
+	height: 42px;
+	flex: none;
+	border-radius: 50%;
+	transition: transform var(--dur) var(--ease-out);
+}
+
+.site-header.is-stuck .logo__mark,
+.site-header--solid .logo__mark {
+	width: 36px;
+	height: 36px;
+}
+
+.logo:hover .logo__mark {
+	transform: rotate(-6deg) scale(1.04);
+}
+
+.logo__text {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.1;
+}
+
+.logo .wordmark {
+	font-size: 1.06rem;
+	color: inherit;
+}
+
+.logo__tagline {
+	font-size: 0.68rem;
+	font-weight: 400;
+	letter-spacing: 0.01em;
+	opacity: 0.68;
+	margin-block-start: 0.2rem;
+}
+
+/* --------------------------------------------------------------------------
+   5. Primary navigation
+   -------------------------------------------------------------------------- */
+.site-nav {
+	display: flex;
+	align-items: center;
+}
+
+.site-nav__list {
+	display: flex;
+	align-items: center;
+	gap: clamp(1.1rem, 2.2vw, 2.25rem);
+}
+
+.site-nav__list a {
+	position: relative;
+	display: inline-block;
+	padding-block: 0.4rem;
+	font-size: 0.95rem;
+	font-weight: 500;
+	opacity: 0.86;
+	transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.site-nav__list a::after {
+	content: '';
+	position: absolute;
+	inset-block-end: 0;
+	inset-inline-start: 0;
+	width: 100%;
+	height: 1px;
+	background-color: currentColor;
+	transform: scaleX(0);
+	transform-origin: right center;
+	transition: transform var(--dur) var(--ease-out);
+}
+
+.site-nav__list a:hover,
+.site-nav__list a:focus-visible,
+.site-nav__list .current-menu-item > a,
+.site-nav__list .current_page_item > a {
+	opacity: 1;
+}
+
+.site-nav__list a:hover::after,
+.site-nav__list a:focus-visible::after,
+.site-nav__list .current-menu-item > a::after,
+.site-nav__list .current_page_item > a::after {
+	transform: scaleX(1);
+}
+
+.site-header__actions {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   6. Mobile navigation
+   -------------------------------------------------------------------------- */
+.nav-toggle {
+	display: none;
+	align-items: center;
+	gap: 0.6rem;
+	padding: 0.5rem;
+	color: inherit;
+}
+
+.nav-toggle__label {
+	font-size: 0.85rem;
+	font-weight: 500;
+}
+
+.nav-toggle__bars {
+	position: relative;
+	display: block;
+	width: 26px;
+	height: 12px;
+}
+
+.nav-toggle__bars span {
+	position: absolute;
+	inset-inline-start: 0;
+	display: block;
+	width: 100%;
+	height: 1.5px;
+	background-color: currentColor;
+	transition: transform var(--dur) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+
+.nav-toggle__bars span:first-child {
+	inset-block-start: 0;
+}
+
+.nav-toggle__bars span:last-child {
+	inset-block-end: 0;
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle__bars span:first-child {
+	transform: translateY(5px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle__bars span:last-child {
+	transform: translateY(-5px) rotate(-45deg);
+}
+
+.mobile-nav {
+	position: fixed;
+	inset: 0;
+	z-index: 99;
+	background-color: var(--ink);
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: calc(var(--header-h) + 2rem) var(--gutter) var(--space-2xl);
+	visibility: hidden;
+	opacity: 0;
+	clip-path: inset(0 0 100% 0);
+	transition: opacity var(--dur) var(--ease-out), clip-path 0.6s var(--ease-out),
+		visibility 0s linear var(--dur);
+	overflow-y: auto;
+}
+
+.mobile-nav.is-open {
+	visibility: visible;
+	opacity: 1;
+	clip-path: inset(0 0 0 0);
+	transition: opacity var(--dur) var(--ease-out), clip-path 0.6s var(--ease-out), visibility 0s;
+}
+
+.mobile-nav__list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.mobile-nav__list a {
+	display: flex;
+	align-items: baseline;
+	gap: 1rem;
+	padding-block: 0.85rem;
+	font-size: clamp(1.5rem, 7vw, 2.1rem);
+	font-weight: 600;
+	border-block-end: 1px solid var(--color-border-dark);
+	transition: padding-inline-start var(--dur) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.mobile-nav__list a:hover,
+.mobile-nav__list a:focus-visible {
+	padding-inline-start: 0.6rem;
+	color: var(--bronze-soft);
+}
+
+.mobile-nav__index {
+	font-family: var(--font-serif);
+	font-size: 0.8rem;
+	color: var(--bronze-soft);
+}
+
+.mobile-nav__footer {
+	margin-block-start: var(--space-xl);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+}
+
+.mobile-nav__contact {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1.5rem;
+	font-size: 0.95rem;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.mobile-nav__watermark {
+	position: absolute;
+	inset-block-end: -10%;
+	inset-inline-start: -18%;
+	width: 70vw;
+	opacity: 0.05;
+	pointer-events: none;
+}
+
+body.nav-open {
+	overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   7. Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+	position: relative;
+	background-color: var(--ink);
+	color: #fff;
+	overflow: hidden;
+	padding-block-start: var(--section-y);
+	--color-muted: rgba(255, 255, 255, 0.6);
+}
+
+.site-footer__inner {
+	position: relative;
+	z-index: 1;
+}
+
+.site-footer__top {
+	display: grid;
+	grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+	gap: var(--space-xl) var(--space-lg);
+	padding-block-end: var(--space-2xl);
+	border-block-end: 1px solid var(--color-border-dark);
+}
+
+.site-footer__brand .logo__mark {
+	width: 52px;
+	height: 52px;
+}
+
+.site-footer__brand .wordmark {
+	font-size: 1.3rem;
+}
+
+.site-footer__about {
+	margin-block-start: var(--space-md);
+	max-width: 34ch;
+	font-size: 0.95rem;
+	line-height: 1.9;
+	color: rgba(255, 255, 255, 0.62);
+}
+
+.site-footer__social {
+	margin-block-start: var(--space-md);
+	display: flex;
+	gap: 0.6rem;
+}
+
+.social-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.55rem;
+	padding: 0.55rem 1rem 0.55rem 0.85rem;
+	border: 1px solid var(--color-border-dark);
+	border-radius: var(--radius-pill);
+	font-size: 0.85rem;
+	color: rgba(255, 255, 255, 0.78);
+	transition: border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out),
+		background-color var(--dur) var(--ease-out);
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+	border-color: var(--bronze);
+	background-color: rgba(180, 131, 79, 0.14);
+	color: #fff;
+}
+
+.site-footer__heading {
+	font-size: var(--fs-label);
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	color: rgba(255, 255, 255, 0.45);
+	margin-block-end: var(--space-md);
+}
+
+.site-footer__list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.7rem;
+	font-size: 0.95rem;
+}
+
+.site-footer__list a {
+	color: rgba(255, 255, 255, 0.78);
+	transition: color var(--dur-fast) var(--ease-out), padding-inline-start var(--dur) var(--ease-out);
+}
+
+.site-footer__list a:hover,
+.site-footer__list a:focus-visible {
+	color: var(--bronze-soft);
+	padding-inline-start: 0.35rem;
+}
+
+.site-footer__contact li {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+}
+
+.site-footer__contact span:first-child {
+	font-size: 0.72rem;
+	color: rgba(255, 255, 255, 0.42);
+}
+
+.site-footer__bottom {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-md);
+	flex-wrap: wrap;
+	padding-block: var(--space-md);
+	font-size: 0.85rem;
+	color: rgba(255, 255, 255, 0.48);
+}
+
+.site-footer__legal {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.site-footer__wordmark {
+	font-family: var(--font-serif);
+	letter-spacing: 0.04em;
+	color: rgba(255, 255, 255, 0.35);
+}
+
+/* --------------------------------------------------------------------------
+   8. Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 1080px) {
+	.site-nav {
+		display: none;
+	}
+
+	.nav-toggle {
+		display: inline-flex;
+	}
+
+	.site-header__actions .btn {
+		display: none;
+	}
+
+	.site-footer__top {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.site-footer__brand {
+		grid-column: 1 / -1;
+	}
+}
+
+@media (max-width: 640px) {
+	:root {
+		--header-h: 72px;
+	}
+
+	.site-footer__top {
+		grid-template-columns: 1fr;
+		gap: var(--space-lg);
+	}
+
+	.site-footer__bottom {
+		justify-content: center;
+		text-align: center;
+	}
+
+	.logo__tagline {
+		display: none;
+	}
+}

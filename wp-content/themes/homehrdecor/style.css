@@ -1,0 +1,27 @@
+/*
+Theme Name: homehrdecor
+Theme URI: http://localhost/homehrdecor/
+Author: محمد مهدی رنجبران
+Author URI: http://localhost/homehrdecor/
+Description: قالب اختصاصی و ادیتوریال برای استودیو طراحی داخلی homehrdecor — راست‌به‌چپ، مبتنی بر عکاسی معماری و تایپوگرافی فارسی. این نسخه تنها لایه‌ی نمایش سایت را پیاده‌سازی می‌کند.
+Version: 1.0.0
+Requires at least: 6.5
+Tested up to: 7.1
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: homehrdecor
+Tags: rtl-language-support, custom-colors, custom-menu, featured-images, editorial, portfolio
+*/
+
+/*
+ * The design system lives in assets/css/:
+ *
+ *   base.css        tokens, reset, typography, utilities, motion
+ *   layout.css      containers, sections, header, navigation, footer
+ *   components.css  buttons, cards, sliders, forms, editorial blocks
+ *   pages.css       hero and per-page compositions
+ *
+ * This file only carries the theme header. No styles are declared here so
+ * there is exactly one place to look for any given rule.
+ */

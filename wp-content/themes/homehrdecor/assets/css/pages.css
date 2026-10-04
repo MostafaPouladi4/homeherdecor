@@ -1,0 +1,912 @@
+/* ==========================================================================
+   homehrdecor — page compositions
+   Hero, home sections, archives, detail views, journal, contact.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Hero
+   -------------------------------------------------------------------------- */
+/* Full-screen where the viewport justifies it, but capped so a tall
+   desktop window does not stretch the composition into empty space. */
+.hero {
+	position: relative;
+	min-height: min(100vh, 940px);
+	min-height: min(100svh, 940px);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	background-color: var(--ink);
+	color: #fff;
+	overflow: hidden;
+	padding-block-start: calc(var(--header-h) + 2rem);
+	padding-block-end: clamp(1.5rem, 4vw, 3rem);
+	--color-muted: rgba(255, 255, 255, 0.66);
+}
+
+.hero__media {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+}
+
+.hero__img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transform: scale(1.06);
+	animation: hero-zoom 2.4s var(--ease-out) forwards;
+}
+
+@keyframes hero-zoom {
+	to {
+		transform: scale(1);
+	}
+}
+
+.hero__scrim {
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(to left, rgba(15, 18, 21, 0.92) 0%, rgba(15, 18, 21, 0.72) 38%, rgba(15, 18, 21, 0.2) 72%, rgba(15, 18, 21, 0.42) 100%),
+		linear-gradient(to top, rgba(15, 18, 21, 0.85), transparent 45%);
+}
+
+.hero__inner {
+	position: relative;
+	z-index: 2;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: flex-end;
+	gap: var(--space-xl);
+	width: 100%;
+}
+
+.hero__content {
+	max-width: min(48rem, 100%);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+}
+
+/* The entrance animations use fill-mode `both` rather than a base
+   opacity of 0, so the hero is fully readable when animations do not
+   run at all (reduced motion, older engines, headless capture). */
+.hero__logo {
+	width: 62px;
+	height: 62px;
+	margin-block-end: var(--space-xs);
+	animation: hero-rise 1s var(--ease-out) 0.15s both;
+}
+
+.hero__eyebrow {
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
+	font-size: 0.82rem;
+	letter-spacing: 0.16em;
+	text-transform: lowercase;
+	color: rgba(255, 255, 255, 0.82);
+	animation: hero-rise 1s var(--ease-out) 0.25s both;
+}
+
+.hero__eyebrow .wordmark {
+	font-weight: 600;
+}
+
+.hero__eyebrow span[aria-hidden] {
+	flex: 0 0 auto;
+	width: clamp(1.5rem, 4vw, 3rem);
+	height: 1px;
+	background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Sized on its own curve: the display token is tuned for short Latin
+   strings and wraps Persian headlines far too early. */
+.hero__title {
+	font-size: clamp(2.1rem, 4.2vw, 4.1rem);
+	font-weight: 800;
+	line-height: 1.3;
+	letter-spacing: -0.012em;
+	animation: hero-rise 1.1s var(--ease-out) 0.35s both;
+}
+
+.hero__title em {
+	font-style: normal;
+	color: var(--bronze-soft);
+}
+
+.hero__text {
+	font-size: var(--fs-lead);
+	line-height: 1.85;
+	color: rgba(255, 255, 255, 0.72);
+	max-width: 46ch;
+	animation: hero-rise 1.1s var(--ease-out) 0.45s both;
+}
+
+.hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-block-start: var(--space-sm);
+	animation: hero-rise 1.1s var(--ease-out) 0.55s both;
+}
+
+@keyframes hero-rise {
+	from {
+		opacity: 0;
+		transform: translateY(26px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/* Floating inset: a second, architectural image for editorial contrast */
+.hero__aside {
+	position: relative;
+	width: clamp(150px, 15vw, 240px);
+	aspect-ratio: 2 / 3;
+	overflow: hidden;
+	flex: none;
+	animation: hero-rise 1.2s var(--ease-out) 0.7s both;
+}
+
+.hero__aside img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.hero__aside-caption {
+	position: absolute;
+	inset-block-end: 0;
+	inset-inline: 0;
+	padding: 0.75rem;
+	font-size: 0.72rem;
+	line-height: 1.6;
+	background: linear-gradient(to top, rgba(15, 18, 21, 0.9), transparent);
+	color: rgba(255, 255, 255, 0.75);
+}
+
+/* Bottom bar: scroll cue plus project metadata */
+.hero__foot {
+	position: relative;
+	z-index: 2;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: var(--space-lg);
+	margin-block-start: clamp(2rem, 5vw, 3.5rem);
+	padding-block-start: var(--space-md);
+	border-block-start: 1px solid rgba(255, 255, 255, 0.16);
+	animation: hero-rise 1.2s var(--ease-out) 0.8s both;
+}
+
+.hero__scroll {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.7rem;
+	font-size: 0.78rem;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.hero__scroll-line {
+	position: relative;
+	display: block;
+	width: 1px;
+	height: 42px;
+	background-color: rgba(255, 255, 255, 0.22);
+	overflow: hidden;
+}
+
+.hero__scroll-line::after {
+	content: '';
+	position: absolute;
+	inset-inline: 0;
+	inset-block-start: -100%;
+	height: 100%;
+	background-color: var(--bronze-soft);
+	animation: hero-scroll 2.2s var(--ease-in-out) infinite;
+}
+
+@keyframes hero-scroll {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(200%);
+	}
+}
+
+.hero__meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-lg);
+	font-size: 0.78rem;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.hero__meta-item {
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+}
+
+.hero__meta-label {
+	color: rgba(255, 255, 255, 0.38);
+}
+
+.hero__meta-value {
+	color: #fff;
+	font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   2. Home — featured projects
+   -------------------------------------------------------------------------- */
+/* Two mirrored rows: a wide landscape paired with a portrait. Both pairs
+   resolve to almost the same height, so no column is left with a gap
+   underneath it. */
+.featured-projects {
+	display: grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	gap: var(--space-xl) clamp(1.25rem, 3vw, 3rem);
+}
+
+.featured-projects__head {
+	grid-column: 1 / -1;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: var(--space-lg);
+	flex-wrap: wrap;
+}
+
+.featured-projects .project-card:nth-of-type(1) {
+	grid-column: 1 / span 7;
+}
+
+.featured-projects .project-card:nth-of-type(2) {
+	grid-column: 9 / span 4;
+}
+
+.featured-projects .project-card:nth-of-type(3) {
+	grid-column: 1 / span 4;
+}
+
+.featured-projects .project-card:nth-of-type(4) {
+	grid-column: 6 / span 7;
+}
+
+/* --------------------------------------------------------------------------
+   3. Projects archive — asymmetric gallery
+   -------------------------------------------------------------------------- */
+.archive-head {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: var(--space-lg);
+	flex-wrap: wrap;
+	margin-block-end: var(--space-2xl);
+}
+
+.archive-count {
+	font-size: var(--fs-small);
+	color: var(--color-muted);
+}
+
+.projects-grid {
+	display: grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	gap: var(--space-2xl) clamp(1.25rem, 3vw, 3rem);
+}
+
+/* A four-card cycle, mirrored: landscape + portrait, then portrait +
+   landscape. Every row resolves to the same height. */
+.projects-grid .project-card:nth-child(4n + 1) {
+	grid-column: 1 / span 7;
+}
+
+.projects-grid .project-card:nth-child(4n + 2) {
+	grid-column: 9 / span 4;
+}
+
+.projects-grid .project-card:nth-child(4n + 3) {
+	grid-column: 1 / span 4;
+}
+
+.projects-grid .project-card:nth-child(4n) {
+	grid-column: 6 / span 7;
+}
+
+.project-card.is-hidden {
+	display: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. Services
+   -------------------------------------------------------------------------- */
+.services-intro {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: clamp(1.5rem, 5vw, 5rem);
+	align-items: end;
+	margin-block-end: var(--space-2xl);
+}
+
+.services-intro__media {
+	aspect-ratio: 16 / 10;
+	overflow: hidden;
+}
+
+.services-intro__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* --------------------------------------------------------------------------
+   5. Detail pages (project & service)
+   -------------------------------------------------------------------------- */
+.detail-hero {
+	position: relative;
+	background-color: var(--ink);
+	color: #fff;
+	overflow: hidden;
+	padding-block-start: calc(var(--header-h) + clamp(2rem, 4vw, 3.25rem));
+	--color-muted: rgba(255, 255, 255, 0.66);
+}
+
+.detail-hero__inner {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: clamp(2rem, 4vw, 4rem);
+	align-items: end;
+	padding-block-end: clamp(2rem, 4vw, 3rem);
+}
+
+.detail-hero__title {
+	font-size: var(--fs-h1);
+	margin-block-end: var(--space-md);
+}
+
+.detail-hero__text {
+	color: rgba(255, 255, 255, 0.7);
+	font-size: var(--fs-lead);
+	line-height: 1.85;
+	max-width: 44ch;
+}
+
+.detail-hero__media {
+	position: relative;
+	margin-block-start: clamp(-3rem, -5vw, -1.5rem);
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+}
+
+.detail-hero__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.detail-body {
+	display: grid;
+	grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+	gap: clamp(2rem, 6vw, 6rem);
+	align-items: start;
+}
+
+.detail-body__aside {
+	position: sticky;
+	inset-block-start: calc(var(--header-h) + 2rem);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+}
+
+.detail-body__content {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2xl);
+}
+
+.detail-block__title {
+	font-size: var(--fs-h3);
+	margin-block-end: var(--space-md);
+	padding-block-start: var(--space-md);
+	border-block-start: 1px solid var(--color-border);
+}
+
+.detail-block__text {
+	font-size: 1.05rem;
+	line-height: 2;
+	color: var(--color-muted);
+}
+
+.materials-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+}
+
+.material-tag {
+	padding: 0.5rem 1.1rem;
+	font-size: 0.88rem;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-pill);
+	color: var(--color-muted);
+}
+
+.gallery-grid {
+	display: grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.gallery-grid__item {
+	overflow: hidden;
+}
+
+.gallery-grid__item img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 1.2s var(--ease-out);
+}
+
+.gallery-grid__item:hover img {
+	transform: scale(1.04);
+}
+
+.gallery-grid__item:nth-child(4n + 1) {
+	grid-column: 1 / span 12;
+	aspect-ratio: 16 / 9;
+}
+
+.gallery-grid__item:nth-child(4n + 2) {
+	grid-column: 1 / span 7;
+	aspect-ratio: 4 / 3;
+}
+
+.gallery-grid__item:nth-child(4n + 3) {
+	grid-column: 8 / span 5;
+	aspect-ratio: 4 / 3;
+}
+
+.gallery-grid__item:nth-child(4n) {
+	grid-column: 1 / span 12;
+	aspect-ratio: 21 / 9;
+}
+
+.related-projects__grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+/* --------------------------------------------------------------------------
+   6. About
+   -------------------------------------------------------------------------- */
+.about-name {
+	font-size: clamp(1.6rem, 3vw, 2.4rem);
+	font-weight: 700;
+}
+
+.about-role {
+	font-size: 1rem;
+	color: var(--color-accent);
+	font-weight: 600;
+}
+
+/* A footnote about the placeholder statistics, set as quiet small print
+   rather than a boxed callout. */
+.about-note {
+	font-size: var(--fs-small);
+	line-height: 1.85;
+	color: var(--color-muted);
+	margin-block-start: var(--space-sm);
+	padding-block-start: var(--space-md);
+	border-block-start: 1px solid var(--color-border);
+}
+
+/* --------------------------------------------------------------------------
+   7. Journal
+   -------------------------------------------------------------------------- */
+.journal-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: var(--space-xl) clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.journal-featured {
+	display: grid;
+	grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+	gap: clamp(2rem, 5vw, 5rem);
+	align-items: center;
+	margin-block-end: var(--space-2xl);
+	padding-block-end: var(--space-2xl);
+	border-block-end: 1px solid var(--color-border);
+}
+
+.article-meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.75rem;
+	font-size: var(--fs-small);
+	color: var(--color-muted);
+	margin-block-end: var(--space-md);
+}
+
+.article-body {
+	max-width: 72ch;
+	margin-inline: auto;
+	font-size: 1.08rem;
+	line-height: 2.1;
+}
+
+.article-body > * + * {
+	margin-block-start: 1.6em;
+}
+
+.article-body h2 {
+	font-size: var(--fs-h3);
+	margin-block-start: 2em;
+}
+
+.article-body h3 {
+	font-size: var(--fs-h4);
+	margin-block-start: 1.8em;
+}
+
+.article-body ul,
+.article-body ol {
+	padding-inline-start: 1.4rem;
+}
+
+.article-body ul li {
+	list-style: disc;
+	margin-block-end: 0.6em;
+}
+
+.article-body ol li {
+	list-style: persian;
+	margin-block-end: 0.6em;
+}
+
+.article-body blockquote {
+	padding-inline-start: var(--space-lg);
+	border-inline-start: 2px solid var(--color-accent);
+	font-size: var(--fs-lead);
+	color: var(--color-muted);
+}
+
+.article-body img {
+	width: 100%;
+	height: auto;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	gap: 0.5rem;
+	margin-block-start: var(--space-2xl);
+}
+
+.pagination .page-numbers {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2.75rem;
+	height: 2.75rem;
+	padding-inline: 0.75rem;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-pill);
+	font-size: 0.9rem;
+	transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+}
+
+.pagination .page-numbers:hover {
+	background-color: var(--color-surface-alt);
+}
+
+.pagination .page-numbers.current {
+	background-color: var(--ink);
+	border-color: var(--ink);
+	color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   8. Contact & consultation
+   -------------------------------------------------------------------------- */
+.contact-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+	gap: clamp(2.5rem, 6vw, 6rem);
+	align-items: start;
+}
+
+.contact-aside {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-lg);
+	padding: clamp(1.5rem, 3vw, 2.5rem);
+	background-color: var(--color-surface-alt);
+}
+
+.consultation-steps {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: var(--space-lg);
+	margin-block-end: var(--space-2xl);
+}
+
+/* --------------------------------------------------------------------------
+   8b. Consultation call to action
+   Shared by every page template, so it carries its own dark ground.
+   -------------------------------------------------------------------------- */
+.cta {
+	position: relative;
+	overflow: hidden;
+	background-color: var(--ink);
+	color: #fff;
+	padding-block: var(--section-y-lg);
+	--color-text: #fff;
+	--color-muted: rgba(255, 255, 255, 0.62);
+	--color-border: var(--color-border-dark);
+	--color-accent: var(--bronze-soft);
+}
+
+.cta__inner {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: clamp(1.5rem, 3vw, 2.25rem);
+	text-align: center;
+}
+
+.cta__actions {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.75rem;
+}
+
+.cta__inner .section-head {
+	max-width: 52ch;
+}
+
+/* --------------------------------------------------------------------------
+   9. 404
+   -------------------------------------------------------------------------- */
+.error-page {
+	min-height: 78svh;
+	display: flex;
+	align-items: center;
+	background-color: var(--ink);
+	color: #fff;
+	padding-block: calc(var(--header-h) + 4rem) var(--space-2xl);
+	position: relative;
+	overflow: hidden;
+	--color-muted: rgba(255, 255, 255, 0.6);
+}
+
+.error-page__code {
+	font-family: var(--font-serif);
+	font-size: clamp(4rem, 14vw, 11rem);
+	line-height: 1;
+	color: rgba(255, 255, 255, 0.14);
+	letter-spacing: 0.06em;
+}
+
+/* --------------------------------------------------------------------------
+   9b. Journal featured media, article navigation, search
+   -------------------------------------------------------------------------- */
+.journal-featured__media {
+	overflow: hidden;
+}
+
+.journal-featured__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 1.2s var(--ease-out);
+}
+
+.journal-featured:hover .journal-featured__media img {
+	transform: scale(1.03);
+}
+
+.journal-featured h2 a:hover {
+	color: var(--color-accent);
+}
+
+.entry--article figure {
+	margin-block: var(--space-2xl);
+}
+
+.article-body a {
+	color: var(--color-accent);
+	text-decoration: underline;
+	text-underline-offset: 0.25em;
+	text-decoration-thickness: 1px;
+}
+
+.post-nav {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-lg);
+	margin-block-start: var(--space-2xl);
+	padding-block-start: var(--space-lg);
+	border-block-start: 1px solid var(--color-border);
+}
+
+.post-nav__item {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+}
+
+.post-nav__item--next {
+	text-align: end;
+	align-items: flex-end;
+}
+
+.post-nav__label {
+	font-size: var(--fs-label);
+	color: var(--color-muted);
+}
+
+.post-nav__title {
+	font-weight: 600;
+	transition: color var(--dur-fast) var(--ease-out);
+}
+
+.post-nav__item:hover .post-nav__title {
+	color: var(--color-accent);
+}
+
+.search-form {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+	width: 100%;
+}
+
+.search-form label {
+	flex: 1;
+	width: 100%;
+}
+
+.search-form .search-field {
+	width: 100%;
+	padding: 0.75rem 1rem;
+	background-color: rgba(255, 255, 255, 0.06);
+	border: 1px solid var(--color-border-dark);
+	color: inherit;
+}
+
+.search-form .search-field::placeholder {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.search-form .search-submit {
+	padding: 0.75rem 1.25rem;
+	background-color: var(--bronze);
+	color: #fff;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   10. Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 1080px) {
+	.hero__inner {
+		grid-template-columns: 1fr;
+		gap: var(--space-lg);
+	}
+
+	.hero__aside {
+		display: none;
+	}
+
+	.hero__content {
+		max-width: 52ch;
+	}
+
+	.featured-projects .project-card:nth-of-type(n),
+	.projects-grid .project-card:nth-child(n) {
+		grid-column: span 6;
+	}
+
+	/* Two cards per row here, so a portrait ratio would set the height of
+	   every row; a landscape crop keeps the rows even and much shorter. */
+	.featured-projects .project-card .project-card__media,
+	.projects-grid .project-card .project-card__media {
+		aspect-ratio: 4 / 3;
+	}
+
+	.related-projects__grid,
+	.journal-grid,
+	.consultation-steps {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.detail-hero__inner,
+	.detail-body,
+	.contact-layout,
+	.services-intro,
+	.journal-featured {
+		grid-template-columns: 1fr;
+	}
+
+	.detail-hero__media {
+		margin-block-start: var(--space-lg);
+	}
+
+	.detail-body__aside {
+		position: static;
+	}
+
+	.journal-featured {
+		gap: var(--space-lg);
+	}
+}
+
+@media (max-width: 720px) {
+	.hero {
+		min-height: auto;
+		padding-block-start: calc(var(--header-h) + 2.5rem);
+	}
+
+	.hero__foot {
+		flex-direction: column-reverse;
+		align-items: flex-start;
+		gap: var(--space-lg);
+	}
+
+	.hero__scroll-line {
+		height: 28px;
+	}
+
+	.featured-projects .project-card:nth-of-type(n),
+	.projects-grid .project-card:nth-child(n) {
+		grid-column: 1 / -1;
+	}
+
+	.related-projects__grid,
+	.journal-grid,
+	.consultation-steps {
+		grid-template-columns: 1fr;
+	}
+
+	.post-nav {
+		grid-template-columns: 1fr;
+	}
+
+	.post-nav__item--next {
+		text-align: start;
+		align-items: flex-start;
+	}
+
+	.gallery-grid__item:nth-child(n) {
+		grid-column: 1 / -1;
+		aspect-ratio: 4 / 3;
+	}
+
+	.meta-list {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-md);
+	}
+
+	.archive-head {
+		align-items: flex-start;
+	}
+}

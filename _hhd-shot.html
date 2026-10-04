@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>shot harness</title>
+<style>
+	html, body { margin: 0; padding: 0; background: #fff; overflow: hidden; }
+	#stage {
+		position: absolute;
+		inset-block-start: 0;
+		inset-inline-start: 0;
+		overflow: hidden;
+	}
+	#stage iframe { display: block; border: 0; }
+</style>
+</head>
+<body>
+<div id="stage"><iframe id="page"></iframe></div>
+<script>
+	// Screenshot harness. Loads a page into a fixed-width frame, stops all
+	// CSS animation and transition so a capture always shows settled
+	// layout, then offsets the frame to expose a slice of the page.
+	// Usage: _hhd-shot.html?u=/projects/&w=1600&h=1000&y=2400&full=1
+	var params = new URLSearchParams(location.search);
+	var url = params.get('u') || '/';
+	var width = parseInt(params.get('w') || '1600', 10);
+	var height = parseInt(params.get('h') || '1000', 10);
+	var offset = parseInt(params.get('y') || '0', 10);
+	var full = params.get('full') === '1';
+
+	var stage = document.getElementById('stage');
+	var frame = document.getElementById('page');
+
+	stage.style.width = width + 'px';
+	stage.style.height = height + 'px';
+	frame.width = width;
+	frame.style.width = width + 'px';
+	frame.style.height = height + 'px';
+	frame.src = 'http://localhost/homehrdecor' + url;
+
+	frame.addEventListener('load', function () {
+		var doc = frame.contentDocument;
+		var view = frame.contentWindow;
+
+		var style = doc.createElement('style');
+		style.textContent =
+			'*,*::before,*::after{animation:none!important;transition:none!important;}' +
+			'html{scrollbar-width:none;}' +
+			'html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;width:0;}' +
+			'.js .reveal,.js .reveal-media,.js .reveal-line{opacity:1!important;transform:none!important;clip-path:none!important;}';
+		doc.head.appendChild(style);
+
+		doc.querySelectorAll('img[loading="lazy"]').forEach(function (img) {
+			img.loading = 'eager';
+		});
+
+		if (full) {
+			// Full-page capture: the frame has to grow to the document
+			// height, which distorts viewport units. Only used when the
+			// caller accepts that trade-off.
+			var pageHeight = doc.documentElement.scrollHeight;
+			frame.style.height = pageHeight + 'px';
+			stage.style.height = pageHeight + 'px';
+		} else {
+			// Keep the frame at a true viewport size so 100svh and friends
+			// resolve correctly, then scroll it to the requested slice.
+			view.scrollTo(0, offset);
+			doc.documentElement.scrollTop = offset;
+			doc.body.scrollTop = offset;
+		}
+
+		setTimeout(function () { document.title = 'ready'; }, 500);
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/wamp64/bin/php//**)",
+      "Read(//c/wamp64/bin/php/**)",
+      "Bash(grep -E \"DB_NAME|WP_HOME|WP_SITEURL|table_prefix\" wp-config.php 2>/dev/null; echo \"=== .htaccess ===\"; cat .htaccess 2>/dev/null | head -30; echo \"=== vhosts ===\"; grep -riE \"ServerName|DocumentRoot\" /c/wamp64/bin/apache/*/conf/extra/httpd-vhosts.conf 2>/dev/null | head -20)",
+      "Read(//c/wamp64/bin/apache/**)",
+      "Bash(grep -riE \"homehrdecor\\\\.\\(local|test|dev\\)|localhost/homehrdecor\" wp-config.php httpd-vhosts.conf 2>/dev/null | head; echo \"=== hosts ===\"; grep -i homehrdecor /c/Windows/System32/drivers/etc/hosts 2>/dev/null)",
+      "Read(//c/Windows/System32/drivers/etc/**)",
+      "Bash(curl -s -o /dev/null -w \"jpg  -> %{http_code}  %{content_type}  %{size_download} bytes\\\\n\" \"http://localhost/homehrdecor/wp-content/themes/homehrdecor/assets/images/hero-interior-480.jpg\")",
+      "Bash(curl -s -o /dev/null -w \"png  -> %{http_code}  %{content_type}  %{size_download} bytes\\\\n\" \"http://localhost/homehrdecor/wp-content/themes/homehrdecor/assets/images/brand/homehrdecor-mark-256.png\")",
+      "Bash(curl -s -o /dev/null -w \"css  -> %{http_code}  %{content_type}\\\\n\" \"http://localhost/homehrdecor/wp-content/themes/homehrdecor/style.css\")",
+      "Bash(cd /tmp)",
+      "Bash(curl -s \"http://localhost/homehrdecor/\" -o home.html -w \"status=%{http_code} size=%{size_download}\\\\n\")",
+      "Bash(/c/wamp64/bin/php/php8.2.29/php.exe -r ' *)",
+      "Bash(grep -nB2 -A8 \"reveal\" base.css layout.css components.css pages.css)",
+      "Bash(grep -vE \"^\\\\s*$\")",
+      "Bash(ls \"/c/Program Files/Google/Chrome/Application/chrome.exe\" \"/c/Program Files \\(x86\\)/Google/Chrome/Application/chrome.exe\" \"/c/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe\" 2>/dev/null; echo \"---\"; cd /c/wamp64/www/homehrdecor/wp-content/themes/homehrdecor && sed -n '160,200p' assets/js/main.js)",
+      "Read(//c/Program Files/Google/Chrome/Application/**)",
+      "Bash(rm -f shot.png)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=9000 --window-size=1440,2400 --screenshot=C:\\\\\\\\Users\\\\\\\\User\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\shot.png \"http://localhost/homehrdecor/\")",
+      "Read(//c/Users/User/AppData/Local/Temp/**)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=9000 --window-size=1440,2600 --screenshot=\"C:/wamp64/www/homehrdecor/shot.png\" \"http://localhost/homehrdecor/\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{content_type} %{size_download}\\\\n\" \"http://localhost/homehrdecor/wp-content/themes/homehrdecor/assets/js/main.js\")",
+      "Bash(curl -s \"http://localhost/homehrdecor/\" -o home.html)",
+      "Bash(grep -oE '<script[^>]*>[^<]{0,120}' home.html)",
+      "Bash(rm -f shot2.png)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --hide-scrollbars --force-prefers-reduced-motion --virtual-time-budget=9000 --window-size=1440,2600 --screenshot=\"C:/wamp64/www/homehrdecor/shot2.png\" \"http://localhost/homehrdecor/\")",
+      "Bash(npm ls *)",
+      "Bash(node -e \"try{console.log\\(require.resolve\\('puppeteer'\\)\\)}catch\\(e\\){console.log\\('no puppeteer'\\)}\")",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --remote-debugging-port=9222 --user-data-dir=\"C:/wamp64/www/homehrdecor/.cdp-profile\" --window-size=1440,900 about:blank)",
+      "Bash(node cdp.js)",
+      "Bash(taskkill //F //IM chrome.exe //T)"
+    ]
+  }
+}

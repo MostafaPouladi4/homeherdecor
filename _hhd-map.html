@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>map</title>
+<style>html,body{margin:0}#page{width:1600px;height:1000px;border:0}</style>
+</head>
+<body>
+<iframe id="page" src="http://localhost/homehrdecor/"></iframe>
+<pre id="out" style="font:12px monospace;white-space:pre-wrap"></pre>
+<script>
+	var frame = document.getElementById('page');
+	frame.addEventListener('load', function () {
+		var doc = frame.contentDocument;
+		var lines = [];
+		lines.push('docHeight=' + doc.documentElement.scrollHeight);
+		lines.push('scrollWidth=' + doc.documentElement.scrollWidth);
+
+		doc.querySelectorAll('main > *, body > section, .section, footer').forEach(function (el) {
+			var r = el.getBoundingClientRect();
+			var top = r.top + frame.contentWindow.scrollY;
+			lines.push(
+				Math.round(top) + '\t' + Math.round(r.height) + '\t' +
+				el.tagName.toLowerCase() + '.' + (el.className || '').toString().split(' ').slice(0, 3).join('.')
+			);
+		});
+
+		// Image audit
+		var imgs = doc.querySelectorAll('img');
+		var broken = 0, noalt = 0;
+		imgs.forEach(function (im) {
+			if (!im.complete || im.naturalWidth === 0) { broken++; lines.push('BROKEN ' + im.currentSrc); }
+			if (!im.hasAttribute('alt')) { noalt++; lines.push('NOALT ' + im.getAttribute('src')); }
+		});
+		lines.push('images=' + imgs.length + ' broken=' + broken + ' noalt=' + noalt);
+
+		var pre = document.createElement('pre');
+		pre.id = 'report';
+		pre.textContent = lines.join('\n');
+		document.body.appendChild(pre);
+	});
+</script>
+</body>
+</html>

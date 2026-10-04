@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>layout probe</title>
+<style>html,body{margin:0}iframe{width:1600px;height:1000px;border:0}</style>
+</head>
+<body>
+<iframe id="f" src="http://localhost/homehrdecor/"></iframe>
+<pre id="out">waiting…</pre>
+<script>
+document.getElementById('f').addEventListener('load', function () {
+	var d = this.contentDocument;
+	var w = this.contentWindow;
+	var lines = [];
+
+	lines.push('viewport            : ' + w.innerWidth + ' x ' + w.innerHeight);
+	lines.push('documentElement.scrollWidth : ' + d.documentElement.scrollWidth);
+	lines.push('body.scrollWidth            : ' + d.body.scrollWidth);
+	lines.push('documentElement.dir  : ' + (d.documentElement.getAttribute('dir') || '-'));
+	lines.push('html class           : ' + d.documentElement.className);
+
+	function box(sel) {
+		var el = d.querySelector(sel);
+		if (!el) { return sel + ' → NOT FOUND'; }
+		var r = el.getBoundingClientRect();
+		var cs = w.getComputedStyle(el);
+		return sel + ' → x:' + Math.round(r.x) + ' y:' + Math.round(r.y) +
+			' w:' + Math.round(r.width) + ' h:' + Math.round(r.height) +
+			' | display:' + cs.display + ' opacity:' + cs.opacity +
+			' pos:' + cs.position + ' overflow:' + cs.overflowX;
+	}
+
+	[
+		'body', 'main.site-main', 'section.hero', '.hero__inner', '.hero__content',
+		'.hero__title', '.hero__eyebrow', '.hero__actions', '.hero__aside', '.hero__foot',
+		'.site-header', '.site-header__inner', '#brand-intro', '.site-footer',
+		'.watermark--hero', '.watermark--philosophy'
+	].forEach(function (s) { lines.push(box(s)); });
+
+	var widest = 0, widestSel = '';
+	d.querySelectorAll('body *').forEach(function (el) {
+		var r = el.getBoundingClientRect();
+		if (r.right > widest) { widest = r.right; widestSel = el.tagName + '.' + el.className; }
+		if (r.left < -widest) { widest = -r.left; widestSel = 'LEFT ' + el.tagName + '.' + el.className; }
+	});
+	lines.push('extreme edge        : ' + Math.round(widest) + ' ← ' + widestSel);
+
+	lines.push('fonts.ready         : ' + (d.fonts ? d.fonts.status : 'n/a'));
+	document.getElementById('out').textContent = lines.join('\n');
+});
+</script>
+</body>
+</html>

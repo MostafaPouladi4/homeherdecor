@@ -1,0 +1,1598 @@
+/* ==========================================================================
+   homehrdecor — components
+   Buttons, links, media, project & service compositions, journal,
+   before/after, process, principles, testimonials, forms.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Buttons & links
+   -------------------------------------------------------------------------- */
+.btn {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.65rem;
+	padding: 0.95rem 1.65rem;
+	font-size: 0.94rem;
+	font-weight: 600;
+	line-height: 1;
+	border: 1px solid transparent;
+	border-radius: var(--radius-pill);
+	overflow: hidden;
+	isolation: isolate;
+	transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out),
+		background-color var(--dur) var(--ease-out);
+}
+
+.btn::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background-color: var(--bronze);
+	transform: translateY(101%);
+	transition: transform var(--dur) var(--ease-out);
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+	transform: translateY(0);
+}
+
+.btn__icon .arrow {
+	transition: transform var(--dur) var(--ease-out);
+}
+
+.btn:hover .btn__icon .arrow,
+.btn:focus-visible .btn__icon .arrow {
+	transform: translateX(-4px);
+}
+
+.btn--solid {
+	background-color: var(--ink);
+	color: #fff;
+}
+
+.btn--solid:hover,
+.btn--solid:focus-visible {
+	color: #fff;
+}
+
+.btn--outline {
+	border-color: currentColor;
+	color: inherit;
+}
+
+.btn--outline:hover,
+.btn--outline:focus-visible {
+	color: #fff;
+	border-color: var(--bronze);
+}
+
+.btn--light {
+	background-color: rgba(255, 255, 255, 0.08);
+	border-color: rgba(255, 255, 255, 0.22);
+	color: #fff;
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+}
+
+.btn--light:hover,
+.btn--light:focus-visible {
+	color: #fff;
+	border-color: var(--bronze);
+}
+
+.link-arrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.55rem;
+	font-size: 0.92rem;
+	font-weight: 600;
+	position: relative;
+	padding-block-end: 0.3rem;
+}
+
+.link-arrow::after {
+	content: '';
+	position: absolute;
+	inset-block-end: 0;
+	inset-inline-start: 0;
+	width: 100%;
+	height: 1px;
+	background-color: currentColor;
+	opacity: 0.35;
+	transform-origin: right center;
+	transition: transform var(--dur) var(--ease-out), opacity var(--dur) var(--ease-out);
+}
+
+.link-arrow:hover::after,
+.link-arrow:focus-visible::after {
+	transform: scaleX(0.4);
+	opacity: 0.9;
+}
+
+.link-arrow .arrow {
+	transition: transform var(--dur) var(--ease-out);
+}
+
+.link-arrow:hover .arrow,
+.link-arrow:focus-visible .arrow {
+	transform: translateX(-5px);
+}
+
+.arrow {
+	flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   2. Media wrappers
+   -------------------------------------------------------------------------- */
+.media {
+	position: relative;
+	overflow: hidden;
+	background-color: var(--color-surface-alt);
+}
+
+.media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 1.2s var(--ease-out), filter 0.6s var(--ease-out);
+}
+
+.media--portrait {
+	aspect-ratio: 4 / 5;
+}
+
+.media--landscape {
+	aspect-ratio: 3 / 2;
+}
+
+/* --------------------------------------------------------------------------
+   3. Project card — an editorial composition, not a boxed card
+   -------------------------------------------------------------------------- */
+.project-card {
+	position: relative;
+}
+
+.project-card__link {
+	display: block;
+}
+
+.project-card__media {
+	position: relative;
+	overflow: hidden;
+	background-color: var(--color-surface-alt);
+}
+
+.project-card--portrait .project-card__media {
+	aspect-ratio: 4 / 5;
+}
+
+.project-card--landscape .project-card__media {
+	aspect-ratio: 3 / 2;
+}
+
+.project-card__img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 1.3s var(--ease-out);
+}
+
+.project-card__scrim {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to top, rgba(20, 24, 27, 0.5), transparent 55%);
+	opacity: 0;
+	transition: opacity var(--dur) var(--ease-out);
+}
+
+.project-card__link:hover .project-card__img,
+.project-card__link:focus-visible .project-card__img {
+	transform: scale(1.06);
+}
+
+.project-card__link:hover .project-card__scrim,
+.project-card__link:focus-visible .project-card__scrim {
+	opacity: 1;
+}
+
+.project-card__body {
+	padding-block-start: var(--space-md);
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.project-card__meta {
+	display: flex;
+	align-items: center;
+	gap: 0.7rem;
+	font-size: var(--fs-label);
+	color: var(--color-muted);
+}
+
+.project-card__number {
+	font-family: var(--font-serif);
+	color: var(--color-accent);
+	letter-spacing: 0.06em;
+}
+
+.project-card__category {
+	position: relative;
+	padding-inline-start: 0.7rem;
+}
+
+.project-card__category::before {
+	content: '';
+	position: absolute;
+	inset-inline-start: 0;
+	inset-block-start: 50%;
+	width: 0.35rem;
+	height: 1px;
+	background-color: currentColor;
+}
+
+.project-card__title {
+	font-size: var(--fs-h3);
+	font-weight: 700;
+	transition: transform var(--dur) var(--ease-out);
+}
+
+.project-card__link:hover .project-card__title {
+	transform: translateX(-6px);
+}
+
+.project-card__facts {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.45rem;
+	font-size: var(--fs-small);
+	color: var(--color-muted);
+}
+
+.project-card__facts span[aria-hidden] {
+	opacity: 0.45;
+}
+
+/* The call to action rides on the image rather than sitting in the text
+   column: while it is hidden it must not reserve any vertical space. */
+.project-card__cta {
+	position: absolute;
+	z-index: 2;
+	inset-block-end: var(--space-md);
+	inset-inline-start: var(--space-md);
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.55rem 1.05rem;
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: #fff;
+	background-color: rgba(20, 24, 27, 0.55);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border-radius: var(--radius-pill);
+	opacity: 0;
+	transform: translateY(6px);
+	pointer-events: none;
+	transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+
+.project-card__cta .arrow {
+	transition: transform var(--dur) var(--ease-out);
+}
+
+.project-card__link:hover .project-card__cta,
+.project-card__link:focus-visible .project-card__cta {
+	opacity: 1;
+	transform: none;
+}
+
+/* Touch layouts never hover, so the call to action stays visible. */
+@media (hover: none), (max-width: 720px) {
+	.project-card__cta {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+.project-card__link:hover .project-card__cta .arrow {
+	transform: translateX(-5px);
+}
+
+/* --------------------------------------------------------------------------
+   4. Services — editorial rows with a floating preview
+   -------------------------------------------------------------------------- */
+.service-list {
+	border-block-start: 1px solid var(--color-border);
+}
+
+.service-row {
+	position: relative;
+	border-block-end: 1px solid var(--color-border);
+}
+
+.service-row__link {
+	display: grid;
+	grid-template-columns: auto clamp(2rem, 4vw, 3.5rem) minmax(0, 1fr) auto;
+	align-items: center;
+	gap: var(--space-md);
+	padding-block: clamp(0.95rem, 1.7vw, 1.6rem);
+	transition: padding-inline-start var(--dur) var(--ease-out);
+}
+
+.service-row__link:hover,
+.service-row__link:focus-visible {
+	padding-inline-start: clamp(0.5rem, 1.5vw, 1.5rem);
+}
+
+.service-row__number {
+	font-family: var(--font-serif);
+	font-size: clamp(0.85rem, 1.1vw, 1rem);
+	color: var(--color-muted);
+	letter-spacing: 0.08em;
+	transition: color var(--dur) var(--ease-out);
+	grid-column: 1;
+}
+
+.service-row__title {
+	font-size: clamp(1.35rem, 3vw, 2.35rem);
+	font-weight: 700;
+	line-height: 1.3;
+	grid-column: 3;
+	transition: color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+
+.service-row__summary {
+	display: none;
+	grid-column: 3;
+	font-size: 0.92rem;
+	color: var(--color-muted);
+}
+
+.service-row__arrow {
+	grid-column: 4;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.85rem;
+	height: 2.85rem;
+	border: 1px solid var(--color-border);
+	border-radius: 50%;
+	color: var(--color-muted);
+	transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out),
+		border-color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+
+.service-row__link:hover .service-row__number,
+.service-row__link:focus-visible .service-row__number {
+	color: var(--color-accent);
+}
+
+.service-row__link:hover .service-row__title,
+.service-row__link:focus-visible .service-row__title {
+	color: var(--color-accent);
+}
+
+.service-row__link:hover .service-row__arrow,
+.service-row__link:focus-visible .service-row__arrow {
+	background-color: var(--color-accent);
+	border-color: var(--color-accent);
+	color: #fff;
+	transform: translateX(-6px);
+}
+
+/* Floating image that follows the pointer on wide screens */
+.service-preview {
+	position: fixed;
+	z-index: 5;
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	width: clamp(220px, 22vw, 340px);
+	aspect-ratio: 4 / 5;
+	overflow: hidden;
+	pointer-events: none;
+	opacity: 0;
+	transform: translate3d(0, 0, 0) scale(0.9);
+	transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+	will-change: transform, opacity;
+}
+
+.service-preview.is-active {
+	opacity: 1;
+}
+
+.service-preview img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0;
+	transition: opacity var(--dur) var(--ease-out);
+}
+
+.service-preview img.is-current {
+	opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   5. Journal
+   -------------------------------------------------------------------------- */
+.journal-card__link {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+/* Placeholder card: demo content with no article behind it yet. */
+.journal-card__link--static {
+	cursor: default;
+}
+
+.journal-card__link--static .journal-card__more {
+	color: var(--color-muted);
+}
+
+.journal-card__media {
+	position: relative;
+	overflow: hidden;
+	background-color: var(--color-surface-alt);
+	aspect-ratio: 4 / 3;
+}
+
+.journal-card__img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 1.2s var(--ease-out);
+}
+
+.journal-card__link:hover .journal-card__img {
+	transform: scale(1.05);
+}
+
+.journal-card__body {
+	padding-block-start: var(--space-md);
+	display: flex;
+	flex-direction: column;
+	gap: 0.55rem;
+	flex: 1;
+}
+
+.journal-card__meta {
+	display: flex;
+	align-items: center;
+	gap: 0.7rem;
+	font-size: var(--fs-label);
+	color: var(--color-muted);
+}
+
+.journal-card__cat {
+	color: var(--color-accent);
+	font-weight: 600;
+}
+
+.journal-card__date {
+	font-family: var(--font-serif);
+}
+
+.journal-card__title {
+	font-size: var(--fs-h4);
+	font-weight: 700;
+	line-height: 1.6;
+	transition: color var(--dur) var(--ease-out);
+}
+
+.journal-card__link:hover .journal-card__title {
+	color: var(--color-accent);
+}
+
+.journal-card__excerpt {
+	font-size: 0.92rem;
+	color: var(--color-muted);
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.journal-card__more {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	margin-block-start: auto;
+	padding-block-start: var(--space-sm);
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: var(--color-muted);
+}
+
+.journal-card__more .arrow {
+	transition: transform var(--dur) var(--ease-out);
+}
+
+.journal-card__link:hover .journal-card__more .arrow {
+	transform: translateX(-5px);
+}
+
+/* --------------------------------------------------------------------------
+   6. Before / after comparison
+   -------------------------------------------------------------------------- */
+/* Both panes are stacked and cropped through the same frame, so the two
+   halves of the comparison always line up. */
+.compare {
+	position: relative;
+	aspect-ratio: 1 / 1;
+	overflow: hidden;
+	user-select: none;
+	touch-action: pan-y;
+	background-color: var(--color-surface-alt);
+}
+
+.compare__pane {
+	position: absolute;
+	inset: 0;
+	display: block;
+}
+
+.compare__pane img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	object-fit: cover;
+	pointer-events: none;
+}
+
+/* The handle is positioned from the inline start (the right edge in RTL),
+   so the revealed half has to be measured from the same edge: the "after"
+   image occupies everything to the left of the handle. */
+.compare__pane--after {
+	clip-path: inset(0 var(--compare-pos, 50%) 0 0);
+}
+
+.compare__label {
+	position: absolute;
+	inset-block-start: 1rem;
+	padding: 0.4rem 0.95rem;
+	font-size: 0.78rem;
+	font-weight: 600;
+	background-color: rgba(20, 24, 27, 0.62);
+	color: #fff;
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	border-radius: var(--radius-pill);
+	pointer-events: none;
+}
+
+/* Labels sit on the half each image occupies: "before" opens on the right
+   (the reading start), "after" closes on the left. */
+.compare__label--before {
+	inset-inline-start: 1rem;
+}
+
+.compare__label--after {
+	inset-inline-end: 1rem;
+}
+
+.compare__handle {
+	position: absolute;
+	inset-block: 0;
+	inset-inline-start: var(--compare-pos, 50%);
+	width: 2px;
+	background-color: rgba(255, 255, 255, 0.9);
+	transform: translateX(50%);
+	pointer-events: none;
+	box-shadow: 0 0 18px rgba(0, 0, 0, 0.35);
+}
+
+/* The grip is much wider than the 2px line it sits on, so it is centred
+   on that line's inline-start edge — the exact edge the reveal boundary
+   is measured from. Both offsets are logical, so the grip stays on the
+   divider when the layout direction flips. */
+.compare__grip {
+	--grip-size: 3.1rem;
+	position: absolute;
+	inset-block-start: 50%;
+	inset-inline-start: 0;
+	margin-inline-start: calc(var(--grip-size) / -2);
+	translate: 0 -50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--grip-size);
+	height: var(--grip-size);
+	border-radius: 50%;
+	background-color: #fff;
+	color: var(--ink);
+	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+	pointer-events: auto;
+	cursor: ew-resize;
+}
+
+.compare__grip svg {
+	width: 22px;
+	height: 22px;
+}
+
+.compare.is-dragging {
+	cursor: ew-resize;
+}
+
+/* Keyboard-accessible slider exposed as a real range input */
+.compare__range {
+	position: absolute;
+	inset-block-end: 0;
+	inset-inline: 0;
+	width: 100%;
+	margin: 0;
+	opacity: 0;
+	height: 100%;
+	cursor: ew-resize;
+	-webkit-appearance: none;
+	appearance: none;
+	background: transparent;
+}
+
+.compare__range:focus-visible + .compare__handle .compare__grip {
+	outline: 2px solid var(--color-accent);
+	outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Process
+   -------------------------------------------------------------------------- */
+.process__track {
+	display: grid;
+	grid-template-columns: repeat(6, minmax(0, 1fr));
+	gap: 0;
+	border-block-start: 1px solid var(--color-border);
+}
+
+.process-step {
+	position: relative;
+	padding: var(--space-lg) var(--space-md) var(--space-lg) 0;
+	border-inline-end: 1px solid var(--color-border);
+}
+
+.process-step:last-child {
+	border-inline-end: 0;
+}
+
+.process-step__number {
+	display: block;
+	font-family: var(--font-serif);
+	font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+	color: var(--color-border);
+	line-height: 1;
+	margin-block-end: var(--space-md);
+	transition: color var(--dur) var(--ease-out);
+}
+
+.process-step:hover .process-step__number {
+	color: var(--color-accent);
+}
+
+.process-step__title {
+	font-size: var(--fs-h4);
+	margin-block-end: 0.6rem;
+}
+
+.process-step__text {
+	font-size: 0.9rem;
+	color: var(--color-muted);
+	line-height: 1.85;
+}
+
+.process-step__line {
+	position: absolute;
+	inset-block-start: -1px;
+	inset-inline-start: 0;
+	width: 100%;
+	height: 2px;
+	background-color: var(--color-accent);
+	transform: scaleX(0);
+	transform-origin: right center;
+	transition: transform 0.8s var(--ease-out);
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+.process-step.is-visible .process-step__line {
+	transform: scaleX(1);
+}
+
+/* --------------------------------------------------------------------------
+   8. Principles (dark section)
+   -------------------------------------------------------------------------- */
+.principles {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: var(--space-xl);
+	position: relative;
+	z-index: 1;
+}
+
+.principle {
+	padding-block-start: var(--space-lg);
+	border-block-start: 1px solid var(--color-border-dark);
+}
+
+.principle__number {
+	font-family: var(--font-serif);
+	font-size: 0.85rem;
+	letter-spacing: 0.12em;
+	color: var(--bronze-soft);
+	display: block;
+	margin-block-end: var(--space-md);
+}
+
+.principle__title {
+	font-size: clamp(1.4rem, 2.4vw, 2rem);
+	margin-block-end: var(--space-sm);
+}
+
+.principle__text {
+	color: rgba(22, 22, 22, 0.62);
+	font-size: 1rem;
+	line-height: 1.9;
+	max-width: 34ch;
+}
+
+/* --------------------------------------------------------------------------
+   9. Statistics
+   -------------------------------------------------------------------------- */
+.stats {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: var(--space-lg);
+}
+
+.stat {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	padding-block-start: var(--space-md);
+	border-block-start: 1px solid var(--color-border);
+}
+
+.stat__value {
+	font-family: var(--font-serif);
+	font-size: clamp(2rem, 4vw, 3.4rem);
+	line-height: 1;
+	font-weight: 400;
+	display: flex;
+	align-items: baseline;
+	gap: 0.15rem;
+}
+
+.stat__plus {
+	font-size: 0.55em;
+	color: var(--color-accent);
+}
+
+.stat__label {
+	font-size: var(--fs-small);
+	color: var(--color-muted);
+}
+
+/* --------------------------------------------------------------------------
+   10. Testimonials
+   -------------------------------------------------------------------------- */
+.testimonials {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: var(--space-xl) var(--space-lg);
+}
+
+.testimonial {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+	padding-block-start: var(--space-md);
+	border-block-start: 1px solid var(--color-border);
+}
+
+.testimonial__quote {
+	font-size: var(--fs-lead);
+	line-height: 1.85;
+	font-weight: 400;
+	flex: 1;
+}
+
+.testimonial__quote::before {
+	content: '”';
+	display: block;
+	font-family: var(--font-serif);
+	font-size: 3.4rem;
+	line-height: 0.6;
+	color: var(--color-accent);
+	opacity: 0.5;
+	margin-block-end: var(--space-sm);
+}
+
+.testimonial__author {
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+	font-size: var(--fs-small);
+}
+
+.testimonial__name {
+	font-weight: 600;
+}
+
+.testimonial__project {
+	color: var(--color-muted);
+}
+
+/* --------------------------------------------------------------------------
+   11. Breadcrumb & page hero
+   -------------------------------------------------------------------------- */
+.breadcrumb {
+	margin-block-end: var(--space-lg);
+}
+
+.breadcrumb__list {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: var(--fs-label);
+	color: rgba(255, 255, 255, 0.55);
+}
+
+.breadcrumb__item {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.breadcrumb__item + .breadcrumb__item::before {
+	content: '/';
+	opacity: 0.4;
+}
+
+.breadcrumb a:hover {
+	color: #fff;
+}
+
+.page-hero {
+	position: relative;
+	background-color: var(--ink);
+	color: #fff;
+	padding-block: calc(var(--header-h) + clamp(2.25rem, 4.5vw, 3.5rem)) clamp(2.25rem, 4.5vw, 3.5rem);
+	overflow: hidden;
+	--color-muted: rgba(255, 255, 255, 0.66);
+}
+
+.page-hero__media {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+}
+
+.page-hero__img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0.55;
+}
+
+.page-hero__scrim {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to left, rgba(20, 24, 27, 0.94), rgba(20, 24, 27, 0.62) 55%, rgba(20, 24, 27, 0.4));
+}
+
+.page-hero__inner {
+	position: relative;
+	z-index: 1;
+}
+
+.page-hero .section-head {
+	max-width: 46ch;
+}
+
+.page-hero .section-head__text {
+	color: rgba(255, 255, 255, 0.68);
+}
+
+/* --------------------------------------------------------------------------
+   12. Editorial blocks
+   -------------------------------------------------------------------------- */
+/* The media column is deliberately narrower than the text column: the
+   portrait image then lands close to the height of the copy beside it
+   instead of leaving a tall, empty band above and below the text. */
+.intro-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+	gap: clamp(1.5rem, 4vw, 4rem);
+	align-items: center;
+}
+
+/* Mirrored composition. The media moves into the second column, so the
+   column widths swap with it to keep it the narrower of the two. */
+.intro-grid--reverse {
+	grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+}
+
+.intro-grid--reverse .intro-grid__media {
+	order: 2;
+}
+
+.intro-grid__media {
+	position: relative;
+}
+
+.intro-grid__media .media {
+	aspect-ratio: 4 / 5;
+}
+
+.intro-grid__aside {
+	position: absolute;
+	inset-block-end: clamp(-3rem, -4vw, -1.5rem);
+	inset-inline-start: clamp(-3rem, -4vw, -1.5rem);
+	width: clamp(140px, 30%, 240px);
+	aspect-ratio: 1;
+	overflow: hidden;
+	display: none;
+}
+
+.intro-grid__aside img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.intro-grid__body {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+}
+
+.intro-grid__body .section-head__title {
+	font-size: var(--fs-h2);
+}
+
+.intro-grid__signature {
+	display: flex;
+	align-items: center;
+	gap: var(--space-md);
+	margin-block-start: var(--space-md);
+	padding-block-start: var(--space-md);
+	border-block-start: 1px solid var(--color-border);
+}
+
+.intro-grid__signature img {
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	flex: none;
+}
+
+.intro-grid__signature-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.intro-grid__signature-name {
+	font-weight: 700;
+}
+
+.intro-grid__signature-role {
+	font-size: var(--fs-small);
+	color: var(--color-muted);
+}
+
+/* Metadata list used on detail pages */
+.meta-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: var(--space-lg);
+	padding-block: var(--space-md);
+	border-block: 1px solid var(--color-border);
+}
+
+.meta-list__item {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+}
+
+.meta-list__label {
+	font-size: var(--fs-label);
+	color: var(--color-muted);
+}
+
+.meta-list__value {
+	font-size: 1.05rem;
+	font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   13. Forms
+   -------------------------------------------------------------------------- */
+.form {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-lg) var(--space-md);
+}
+
+/* A pair of fields that share one row of the form grid. */
+.form__row {
+	grid-column: 1 / -1;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-lg) var(--space-md);
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.field--full {
+	grid-column: 1 / -1;
+}
+
+.field__label {
+	font-size: var(--fs-small);
+	font-weight: 600;
+}
+
+.field__required {
+	color: var(--color-accent);
+}
+
+.field input,
+.field select,
+.field textarea {
+	width: 100%;
+	padding: 0.85rem 0;
+	background-color: transparent;
+	border: 0;
+	border-block-end: 1px solid var(--color-border);
+	border-radius: 0;
+	font-size: 1rem;
+	transition: border-color var(--dur) var(--ease-out);
+}
+
+.field textarea {
+	min-height: 7rem;
+	resize: vertical;
+	line-height: 1.8;
+}
+
+.field select {
+	appearance: none;
+	background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+		linear-gradient(135deg, currentColor 50%, transparent 50%);
+	background-position: calc(0% + 12px) calc(50% + 2px), calc(0% + 17px) calc(50% + 2px);
+	background-size: 5px 5px, 5px 5px;
+	background-repeat: no-repeat;
+	padding-inline-start: 2rem;
+}
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+	border-color: var(--color-text);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+	outline: none;
+	border-color: var(--color-accent);
+}
+
+.field__hint {
+	font-size: 0.82rem;
+	color: var(--color-muted);
+}
+
+.form__actions {
+	grid-column: 1 / -1;
+	display: flex;
+	align-items: center;
+	gap: var(--space-md);
+	flex-wrap: wrap;
+}
+
+.form__note {
+	font-size: var(--fs-small);
+	color: var(--color-muted);
+}
+
+/* --------------------------------------------------------------------------
+   14. Contact details, accordion, filter bar
+   -------------------------------------------------------------------------- */
+.contact-list {
+	display: grid;
+	gap: var(--space-lg);
+}
+
+.contact-item {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+	padding-block-end: var(--space-md);
+	border-block-end: 1px solid var(--color-border);
+}
+
+.contact-item__label {
+	font-size: var(--fs-label);
+	color: var(--color-muted);
+}
+
+.contact-item__value {
+	font-size: 1.1rem;
+	font-weight: 600;
+}
+
+.contact-item__value a:hover {
+	color: var(--color-accent);
+}
+
+.contact-item__value[dir='ltr'] {
+	font-family: var(--font-serif);
+	letter-spacing: 0.04em;
+}
+
+.contact-item__note {
+	font-size: var(--fs-small);
+	color: var(--color-muted);
+	line-height: 1.8;
+}
+
+/* Simple vertical list of arrow links */
+.link-list {
+	display: grid;
+	gap: 0.9rem;
+}
+
+.link-list a {
+	font-size: 1.05rem;
+}
+
+.link-list a:hover {
+	color: var(--color-accent);
+}
+
+.accordion {
+	border-block-start: 1px solid var(--color-border);
+}
+
+.accordion__item {
+	border-block-end: 1px solid var(--color-border);
+}
+
+.accordion__trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-md);
+	width: 100%;
+	padding-block: var(--space-md);
+	text-align: start;
+	font-size: var(--fs-h4);
+	font-weight: 600;
+	transition: color var(--dur) var(--ease-out);
+}
+
+.accordion__trigger:hover {
+	color: var(--color-accent);
+}
+
+.accordion__icon {
+	position: relative;
+	flex: none;
+	width: 1.1rem;
+	height: 1.1rem;
+}
+
+.accordion__icon::before,
+.accordion__icon::after {
+	content: '';
+	position: absolute;
+	inset-block-start: 50%;
+	inset-inline-start: 0;
+	width: 100%;
+	height: 1.5px;
+	background-color: currentColor;
+	transition: transform var(--dur) var(--ease-out);
+}
+
+.accordion__icon::after {
+	transform: rotate(90deg);
+}
+
+.accordion__trigger[aria-expanded='true'] .accordion__icon::after {
+	transform: rotate(0deg);
+}
+
+.accordion__panel {
+	overflow: hidden;
+	height: 0;
+	transition: height var(--dur) var(--ease-out);
+}
+
+.accordion__panel-inner {
+	padding-block-end: var(--space-md);
+	color: var(--color-muted);
+	max-width: 70ch;
+}
+
+.filter-bar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.filter-btn {
+	padding: 0.6rem 1.2rem;
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: var(--color-muted);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-pill);
+	transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out),
+		background-color var(--dur) var(--ease-out);
+}
+
+.filter-btn:hover {
+	color: var(--color-text);
+	border-color: var(--color-text);
+}
+
+.filter-btn[aria-pressed='true'] {
+	background-color: var(--ink);
+	border-color: var(--ink);
+	color: #fff;
+}
+
+.empty-state {
+	padding-block: var(--space-2xl);
+	text-align: center;
+	color: var(--color-muted);
+}
+
+.empty-state__title {
+	font-size: var(--fs-h3);
+	color: var(--color-text);
+	margin-block-end: var(--space-sm);
+}
+
+/* --------------------------------------------------------------------------
+   15. Reviews, ratings and form feedback
+   -------------------------------------------------------------------------- */
+
+/* Single-column variant of .form, used by the review submission form where
+   the fields are stacked rather than paired. */
+.form--stack {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+/* Honeypot. Kept in the layout — a bot skips display:none fields but fills
+   anything it can find — and made invisible in place rather than by being
+   pushed off-screen. A negative inline offset would resolve to the right
+   edge of an RTL page, which is the side that grows a horizontal scrollbar.
+   .form is the containing block (see the position on .form above). */
+.form__trap {
+	position: absolute;
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.form__trap input {
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	border: 0;
+}
+
+.form__feedback {
+	grid-column: 1 / -1;
+	margin: 0;
+	padding: 0.9rem 1.1rem;
+	border-inline-start: 2px solid var(--color-accent);
+	font-size: var(--fs-small);
+}
+
+.form__feedback:empty {
+	display: none;
+}
+
+.form__feedback.is-success {
+	background-color: rgba(180, 131, 79, 0.08);
+}
+
+.form__feedback.is-error {
+	background-color: rgba(166, 59, 47, 0.07);
+	border-inline-start-color: var(--color-danger);
+	color: var(--color-danger);
+}
+
+.reviews-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+	gap: var(--space-2xl) var(--space-xl);
+	align-items: start;
+}
+
+.reviews-summary {
+	display: flex;
+	align-items: center;
+	gap: var(--space-md);
+	padding-block-end: var(--space-lg);
+	margin-block-end: var(--space-lg);
+	border-block-end: 1px solid var(--color-border);
+}
+
+.reviews-summary__value {
+	font-size: clamp(2.2rem, 4vw, 3.2rem);
+	font-weight: 700;
+	line-height: 1;
+}
+
+.reviews-summary__meta {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+}
+
+.reviews-summary__count {
+	font-size: var(--fs-small);
+	color: var(--color-muted);
+}
+
+.reviews-list {
+	display: grid;
+	gap: var(--space-lg);
+}
+
+.review {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xs);
+	padding-block-end: var(--space-lg);
+	border-block-end: 1px solid var(--color-border);
+}
+
+.review:last-child {
+	border-block-end: 0;
+	padding-block-end: 0;
+}
+
+.review__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-md);
+	flex-wrap: wrap;
+}
+
+.review__author {
+	font-weight: 600;
+}
+
+.review__text {
+	line-height: 1.9;
+}
+
+.review__date {
+	font-size: var(--fs-label);
+	color: var(--color-muted);
+}
+
+.reviews-empty {
+	color: var(--color-muted);
+}
+
+/* Star rating. Stars fill from the start edge, so the half-clipped star keeps
+   the start-side half: the left one in LTR, the right one in RTL. clip-path
+   takes physical values and has no logical form, so the aspect that the site
+   is Persian and RTL is stated explicitly rather than left to a logical
+   property. The default is the LTR shape because language_attributes() emits
+   no dir attribute at all on an LTR site — only RTL is declared. */
+.rating {
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+	line-height: 0;
+}
+
+.rating__star {
+	fill: var(--color-accent);
+	flex: none;
+}
+
+.rating__star.is-empty {
+	fill: none;
+	stroke: var(--color-accent);
+	stroke-width: 1.4;
+	opacity: 0.45;
+}
+
+.rating__star.is-half {
+	fill: var(--color-accent);
+	clip-path: inset(0 50% 0 0);
+}
+
+[dir='rtl'] .rating__star.is-half {
+	clip-path: inset(0 0 0 50%);
+}
+
+.rating--sm .rating__star {
+	width: 13px;
+	height: 13px;
+}
+
+@media (max-width: 900px) {
+	.reviews-layout {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+/* --------------------------------------------------------------------------
+   16. Responsive
+   -------------------------------------------------------------------------- */
+@media (min-width: 900px) {
+	.intro-grid__aside {
+		display: block;
+	}
+}
+
+@media (max-width: 1080px) {
+	.principles,
+	.testimonials,
+	.stats {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	/* Once these columns stack, a portrait ratio turns a full-width image
+	   into a very tall one; a landscape crop keeps the section compact. */
+	.intro-grid__media .media,
+	.compare {
+		aspect-ratio: 16 / 10;
+	}
+
+	.process__track {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.process-step:nth-child(3n) {
+		border-inline-end: 0;
+	}
+
+	.intro-grid {
+		grid-template-columns: 1fr;
+		gap: var(--space-xl);
+	}
+
+	.intro-grid--reverse .intro-grid__media {
+		order: 0;
+	}
+}
+
+@media (max-width: 782px) {
+	.service-row__link {
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		gap: var(--space-2xs) var(--space-md);
+	}
+
+	.service-row__number {
+		grid-column: 1;
+		grid-row: 1;
+		align-self: start;
+		padding-block-start: 0.4rem;
+	}
+
+	.service-row__title {
+		grid-column: 2;
+		grid-row: 1;
+	}
+
+	.service-row__summary {
+		display: block;
+		grid-column: 2;
+		grid-row: 2;
+	}
+
+	.service-row__arrow {
+		grid-column: 3;
+		grid-row: 1;
+		width: 2.4rem;
+		height: 2.4rem;
+		align-self: start;
+	}
+
+	.service-preview {
+		display: none;
+	}
+}
+
+@media (max-width: 640px) {
+	.principles,
+	.testimonials {
+		grid-template-columns: 1fr;
+	}
+
+	/* Four short figures still read well two-up on a phone, and stacking
+	   them would add a full screen of height. */
+	.stats {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-md) var(--space-lg);
+	}
+
+	.process__track {
+		grid-template-columns: 1fr;
+		border-block-start: 0;
+	}
+
+	.process-step {
+		padding: 0;
+		padding-inline-start: var(--space-lg);
+		padding-block-end: var(--space-md);
+		border-inline-end: 0;
+		position: relative;
+	}
+
+	/* Vertical timeline spine on small screens */
+	.process-step::before {
+		content: '';
+		position: absolute;
+		inset-block: 0;
+		inset-inline-start: 0;
+		width: 1px;
+		background-color: var(--color-border);
+	}
+
+	.process-step__line {
+		inset-block-start: 0;
+		inset-inline-start: 0;
+		width: 1px;
+		height: 100%;
+		transform: scaleY(0);
+		transform-origin: top center;
+	}
+
+	.process-step.is-visible .process-step__line {
+		transform: scaleY(1);
+	}
+
+	.process-step__marker {
+		position: absolute;
+		inset-block-start: 0.6rem;
+		inset-inline-start: -4px;
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+		background-color: var(--color-accent);
+	}
+
+	.form,
+	.form__row {
+		grid-template-columns: 1fr;
+	}
+
+	.btn {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.compare__grip {
+		--grip-size: 2.6rem;
+	}
+}
